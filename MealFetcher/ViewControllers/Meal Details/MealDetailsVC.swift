@@ -26,14 +26,9 @@ class MealDetailsVC: BaseVC {
     /// Stores height of instructionTextView from MealInsructionDetailCell
     private var textViewHeight: CGFloat = 0.0
     /// Stores ingredient/measurement list
-    private var ingredientlist: [Ingredient]? = nil
+    private var ingredientlist: [Ingredient]?
     /// Stores meal details
-    private var mealDetails: MealDetails? = nil {
-        didSet {
-            self.ingredientlist = mealDetails?.getIngredientMeasureList()
-            tableView.reloadData()
-        }
-    }
+    private var mealDetails: MealDetails?
     /// Stores meal ID
     private lazy var mealId: String? = nil {
         didSet {
@@ -117,6 +112,7 @@ class MealDetailsVC: BaseVC {
             DispatchQueue.main.async {
                 sSelf.hideSpinner()
                 sSelf.mealDetails = mealDetails
+                sSelf.tableView.reloadData()
             }
         }.store(in: &cancellables)
     }
